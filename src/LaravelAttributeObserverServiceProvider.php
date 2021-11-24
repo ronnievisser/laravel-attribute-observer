@@ -71,7 +71,7 @@ class LaravelAttributeObserverServiceProvider extends PackageServiceProvider
 
                         foreach ($observedEvents as $observedEvent) {
                             $modelClass::{$observedEvent}(function (Model $model) use ($observedEvent, $observerEventsAttribs, $observerInstance) {
-                                if ($model->wasChanged()) {
+                                if ($model->isDirty()) {
                                     foreach ($observerEventsAttribs[$observedEvent] as $attribute) {
                                         if ($this->modelHasAttribute($model, $attribute) && $model->wasChanged($attribute)) {
                                             $method = 'on' . Str::studly($attribute) . Str::ucfirst($observedEvent);
